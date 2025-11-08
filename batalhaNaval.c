@@ -1,8 +1,5 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
 
 
 int main()
@@ -11,57 +8,105 @@ int main()
     int linha[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int tabuleiro[10][10] = {0};
 
-    //inserção dos navios manualmente substituindo [y][x]
-    //navio 1 
-    tabuleiro [0][0] = 3;
-    tabuleiro [0][1] = 3;
-    tabuleiro [0][2] = 3;
-
-    //navio 2
-    tabuleiro [9][5] = 3;
-    tabuleiro [8][5] = 3;
-    tabuleiro [7][5] = 3;
     
-    //navio 3
-    //tabuleiro [0][4] = 3;
-   // tabuleiro [1][5] = 3;
-   // tabuleiro [2][6] = 3;
 
-    //navio 4
-    //tabuleiro [8][1] = 3;
-   // tabuleiro [7][2] = 3;
-    //tabuleiro [6][3] = 3;
- 
-    // int x1, y1, x2, y2;
+    
+
+    //Navio na horizontal
+    for(int s = 0, pi1, pi2; s < 3; s++){
+
+        int pi1 = 9; // ponto inicial 1 = i ou y 
+        int pi2 = 3; // ponto inicial 2 = j ou x
+
+        if((pi2 > 9) || (pi1 > 9) || (pi1 < 0) || (pi2 < 0)){//lógica para impedir a entrada de qualquer valor maior que a matriz
+            printf("Erro Crítico!, entrada inválida.");
+            return 1;
+        }
+        if(pi1 <= 7){ //lógica para tentar impedir que o navio saia do tabuleiro
+            tabuleiro[pi1 + s][pi2] = 3; //lógica para a impressão do navio na horizontal
+        }else{ 
+            tabuleiro[pi1 - s][pi2] = 3;  
+        }
+        
+    }
+
+    //Navio na vertical
+    for(int s = 0, pi1, pi2; s < 3; s++){
+        
+        int pi1 = 2; // ponto inicial 1 = i ou y 
+        int pi2 = 7; // ponto inicial 2 = j ou x
+
+        if((pi2 > 9) || (pi1 > 9) || (pi1 < 0) || (pi2 < 0)){
+            printf("Erro Crítico!, entrada inválida.");
+            return 1;
+        }
+        if(pi2 <= 7){
+        tabuleiro[pi1][pi2 + s] = 3; //lógica para a impressão do navio na vertical
+    } else{
+         tabuleiro[pi2][pi2 - s] = 3;
+    }} 
+
+
+    //Navio na diagonal principal
+    for(int s = 0, pi1, pi2; s < 3; s++){
+        
+        int pi1 = 3; // ponto inicial 1 = i ou y 
+        int pi2 = 3; // ponto inicial 2 = j ou x
+
+        if((pi2 > 9) || (pi1 > 9) || (pi1 < 0) || (pi2 < 0)){
+            printf("Erro Crítico!, entrada inválida.");
+            return 1;
+        }
+        
+        tabuleiro[pi1 + s][pi2 + s] = 3; //lógica para a impressão do navio na diagonal principal
+    
+         
+    } 
+
+
+    //Navio na diagonal secundária
+    for(int s = 0, d = 0, pi1, pi2; s < 3; s++){
+        
+        int pi1 = 7; // ponto inicial 1 = i ou y 
+        int pi2 = 7; // ponto inicial 2 = j ou x
+
+        if((pi2 > 9) || (pi1 > 9) || (pi1 < 0) || (pi2 < 0)){
+            printf("Erro Crítico!, entrada inválida.");
+            return 1;
+        }
+        tabuleiro[pi1 + s][pi2 - s] = 3; //lógica para a impressão do navio na diagonal secundária
+    }
+    
+         
+    
+
+
 
     printf("*** Batalha Naval ***\n");
-    printf("_____________________\n\n");
+    printf("_____________________\n\n"); //Impressão da Interface
     printf("  ");
-
-    for (int y = 0; y < 10; y++)
+    for (int y = 0; y < 10; y++) //Cabeçalho do Tabuleiro
     {
         printf(" %c", coluna[y]);
     }
 
     printf("\n");
 
-    for (int x = 0; x < 10; x++)
+    for (int x = 0; x < 10; x++) //Impressão da coluna numérica
     {
         printf("%2d ", linha[x]);
 
-        for (int y = 0; y < 10; y++)
+        for (int y = 0; y < 10; y++) 
         {
-            printf("%d ", tabuleiro[y][x]);
-            /*a lógica utilizada foi que a variavel foi inicializada anteriormente, sendo todo valor = 0,
-            quando inserimos um valor em algum dos navios, o programa identifica e imprime 3 ao em vez de 0,
-            porém essa lógica nessecita que se insira em cada enderço o valor 3, não há o impedimento caso o navio 
-            não caiba dentro do tabuleiro e também não há uma verificação se o navio de fato está inteiro(sem espaços entre os 3). */
+            printf("%d ", tabuleiro[y][x]); //Impressão da água e dos navios
             
         }
         printf("\n");
     }
 
-
+  /*Problemas encontrados:
+  Não consegui encontrar uma solução para que os navios não sejam colocados nas mesmas casas, se atravessando no processo
+  Uma solução precária para a saída do navio no tabuleiro foi adotada, mas com certeza há maneiras melhores de fazê-la.*/
 
 
 return 0;
